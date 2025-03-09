@@ -23,8 +23,8 @@ public class Column {
 	@XmlElement(name = "isForeignKey")
 	private boolean foreignKey;
 
-	@XmlElement(name = "referencecTableName")
-	private String referenceTableName;
+	@XmlElement(name = "referencedTableName")
+	private String referencedTableName;
 
 	// Getters and setters
 	public String getName() {
@@ -51,7 +51,7 @@ public class Column {
 		return foreignKey;
 	}
 
-	public String getReferenceTableName() {
-		return referenceTableName;
+	public String getReferencedTableName() {
+		return referencedTableName;
 	}
 }

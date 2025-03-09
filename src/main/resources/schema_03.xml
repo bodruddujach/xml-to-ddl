@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tables>
+
+    <!-- User Management -->
+    <table>
+        <name>users</name>
+        <columns>
+            <column><name>id</name><type>uuid</type><isPrimaryKey>true</isPrimaryKey></column>
+            <column><name>username</name><type>varchar</type><isUnique>true</isUnique></column>
+            <column><name>email</name><type>varchar</type><isUnique>true</isUnique></column>
+            <column><name>password</name><type>text</type></column>
+            <column><name>created_at</name><type>date</type></column>
+        </columns>
+    </table>
+
+    <table>
+        <name>roles</name>
+        <columns>
+            <column><name>id</name><type>uuid</type><isPrimaryKey>true</isPrimaryKey></column>
+            <column><name>name</name><type>varchar</type><isUnique>true</isUnique></column>
+        </columns>
+    </table>
+
+    <table>
+        <name>permissions</name>
+        <columns>
+            <column><name>id</name><type>uuid</type><isPrimaryKey>true</isPrimaryKey></column>
+            <column><name>permission_name</name><type>varchar</type><isUnique>true</isUnique></column>
+        </columns>
+    </table>
+
+    <table>
+        <name>user_role</name>
+        <columns>
+            <column><name>user_id</name><type>uuid</type><isForeignKey>true</isForeignKey><referencedTableName>users</referencedTableName></column>
+            <column><name>role_id</name><type>uuid</type><isForeignKey>true</isForeignKey><referencedTableName>roles</referencedTableName></column>
+        </columns>
+    </table>
+
+    <table>
+        <name>role_permission</name>
+        <columns>
+            <column><name>role_id</name><type>uuid</type><isForeignKey>true</isForeignKey><referencedTableName>roles</referencedTableName></column>
+            <column><name>permission_id</name><type>uuid</type><isForeignKey>true</isForeignKey><referencedTableName>permissions</referencedTableName></column>
+        </columns>
+    </table>
+
+    <table>
+        <name>session</name>
+        <columns>
+            <column><name>id</name><type>uuid</type><isPrimaryKey>true</isPrimaryKey></column>
+            <column><name>user_id</name><type>uuid</type><isForeignKey>true</isForeignKey><referencedTableName>users</referencedTableName></column>
+            <column><name>token</name><type>text</type><isUnique>true</isUnique></column>
+            <column><name>expires_at</name><type>date</type></column>
+        </columns>
+    </table>
+
+    <!-- E-commerce Tables -->
+    <table>
+        <name>customer</name>
+        <columns>
+            <column><name>id</name><type>uuid</type><isPrimaryKey>true</isPrimaryKey></column>
+            <column><name>name</name><type>varchar</type></column>
+            <column><name>email</name><type>varchar</type><isUnique>true</isUnique></column>
+        </columns>
+    </table>
+
+    <table>
+        <name>category</name>
+        <columns>
+            <column><name>id</name><type>uuid</type><isPrimaryKey>true</isPrimaryKey></column>
+            <column><name>name</name><type>varchar</type><isUnique>true</isUnique></column>
+            <column><name>parent_category_id</name><type>uuid</type><isForeignKey>true</isForeignKey><referencedTableName>category</referencedTableName></column>
+        </columns>
+    </table>
+
+    <table>
+        <name>product</name>
+        <columns>
+            <column><name>id</name><type>uuid</type><isPrimaryKey>true</isPrimaryKey></column>
+            <column><name>name</name><type>varchar</type><isUnique>true</isUnique></column>
+            <column><name>category_id</name><type>uuid</type><isForeignKey>true</isForeignKey><referencedTableName>category</referencedTableName></column>
+            <column><name>price</name><type>int</type></column>
+        </columns>
+    </table>
+
+    <table>
+        <name>customer_order</name>
+        <columns>
+            <column><name>id</name><type>uuid</type><isPrimaryKey>true</isPrimaryKey></column>
+            <column><name>customer_id</name><type>uuid</type><isForeignKey>true</isForeignKey><referencedTableName>customer</referencedTableName></column>
+            <column><name>order_date</name><type>date</type></column>
+        </columns>
+    </table>
+
+    <table>
+        <name>order_item</name>
+        <columns>
+            <column><name>id</name><type>uuid</type><isPrimaryKey>true</isPrimaryKey></column>
+            <column><name>customer_order_id</name><type>uuid</type><isForeignKey>true</isForeignKey><referencedTableName>customer_order</referencedTableName></column>
+            <column><name>product_id</name><type>uuid</type><isForeignKey>true</isForeignKey><referencedTableName>product</referencedTableName></column>
+            <column><name>quantity</name><type>int</type></column>
+        </columns>
+    </table>
+
+    <table>
+        <name>warehouse</name>
+        <columns>
+            <column><name>id</name><type>uuid</type><isPrimaryKey>true</isPrimaryKey></column>
+            <column><name>location</name><type>varchar</type></column>
+        </columns>
+    </table>
+
+    <table>
+        <name>stock</name>
+        <columns>
+            <column><name>id</name><type>uuid</type><isPrimaryKey>true</isPrimaryKey></column>
+            <column><name>warehouse_id</name><type>uuid</type><isForeignKey>true</isForeignKey><referencedTableName>warehouse</referencedTableName></column>
+            <column><name>product_id</name><type>uuid</type><isForeignKey>true</isForeignKey><referencedTableName>product</referencedTableName></column>
+            <column><name>quantity</name><type>int</type></column>
+        </columns>
+    </table>
+
+    <table>
+        <name>supplier</name>
+        <columns>
+            <column><name>id</name><type>uuid</type><isPrimaryKey>true</isPrimaryKey></column>
+            <column><name>name</name><type>varchar</type></column>
+        </columns>
+    </table>
+
+    <table>
+        <name>purchase_order</name>
+        <columns>
+            <column><name>id</name><type>uuid</type><isPrimaryKey>true</isPrimaryKey></column>
+            <column><name>supplier_id</name><type>uuid</type><isForeignKey>true</isForeignKey><referencedTableName>supplier</referencedTableName></column>
+            <column><name>order_date</name><type>date</type></column>
+        </columns>
+    </table>
+
+</tables>
+

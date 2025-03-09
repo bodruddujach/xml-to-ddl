@@ -39,7 +39,7 @@
                 <isNullable>false</isNullable>
                 <isUnique>false</isUnique>
                 <isForeignKey>true</isForeignKey>
-                <referencecTableName>customer</referencecTableName>
+                <referencedTableName>customer</referencedTableName>
             </column>
         </columns>
     </table>
