@@ -29,8 +29,8 @@ public class DynamicDdlGenerationApplication implements CommandLineRunner {
 	// You can run sample src/main/resources/schema.xml just by un-commenting the
 	// below code block
 
-		String xmlFilePath = "src/main/resources/schema_03.xml";
-		Tables tables = XMLParser.parseXML(xmlFilePath); List<Table> tableList = tables.getTables();
-		databaseService.createTables(tableList);
+	//	String xmlFilePath = "src/main/resources/schema.xml";
+	//	Tables tables = XMLParser.parseXML(xmlFilePath); List<Table> tableList = tables.getTables();
+	//	databaseService.createTables(tableList);
 	}
 }
